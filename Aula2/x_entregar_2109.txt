@@ -1,0 +1,1 @@
+completar os switch case da fila dos prints completa-los dentro do bloco principal depois migrar para subrotinas
