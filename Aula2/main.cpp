@@ -82,8 +82,8 @@ int main(){
             break;
 
         case '5':
-            printf("Sair\n");
 
+            printf("Sair\n");
             break;
         }
 
