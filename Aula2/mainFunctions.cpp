@@ -7,13 +7,13 @@ typedef struct Aluno{
 };
 
 int filaVazia(Aluno *);
-void inserir(Aluno *, Aluno *, Aluno *);
-void listar(Aluno *, Aluno *);
-void remover(Aluno *, Aluno *, Aluno *);
-void esvaziar(Aluno *, Aluno *, Aluno *);
+void inserir(Aluno **i, Aluno **f);
+void listar(Aluno *i);
+Aluno *remover(Aluno *i);
+Aluno *esvaziar(Aluno *i);
 
 int main(){
-    Aluno *inicio = NULL, *fim, *aux;
+    Aluno *inicio = NULL, *fim;
     char op;
 
     do{
@@ -25,27 +25,19 @@ int main(){
 
         case '1':
             printf("\nInserir\n");
-            aux = (Aluno *) malloc(sizeof(Aluno));
-
-            if(aux == NULL)
-                printf("Sem memoria\n");
-
-            else{
-                inserir(aux, inicio, fim);
-            }
-
+            inserir(&inicio, &fim);
             break;
 
         case '2':
             printf("\nListar\n");
             filaVazia(inicio);
-            listar(aux, inicio);
+            listar(inicio);
             break;
 
         case '3':
             printf("Remover\n");
             filaVazia(inicio);
-            remover(aux, inicio, fim);
+            inicio = remover(inicio);
             break;
 
         case '4':
@@ -64,49 +56,47 @@ int main(){
     return 0;
 }
 
-void inserir(Aluno *a, Aluno *i, Aluno *f){
+void inserir(Aluno **i, Aluno **f){
+
+    Aluno *aux;
+    aux = (Aluno *) malloc(sizeof(Aluno));
+
+    if(aux == NULL)
+        printf("Sem memoria\n");
 
     printf("Digite o RA: ");
-    scanf("%d", &a->ra);
-    a->prox = NULL;
+    scanf("%d", &aux->ra);
+    aux->prox = NULL;
 
-    if(i == NULL)
-        i = a;
+    if(*i == NULL)
+        *i = aux;
     else
-        f->prox = a;
+        (*f)->prox = aux;
 
-    f = a;
+    *f = aux;
 }
 
 
 int filaVazia(Aluno *i){
     if (i == NULL)
-                printf("Fila Vazia\n");
-                return 0;
+        printf("Fila Vazia\n");
+        return NULL;
 }
 
-void listar(Aluno *a, Aluno *i){
-    a = i;
-    while(a != NULL){
-        printf("RA: %d \n", a->ra);
-        a = a ->prox;
-    }
-}
-
-void remover(Aluno *a, Aluno *i, Aluno *f){
-    a = i;
-    i = i->prox;
-    free(a);
-    a = f;
-}
-
-void esvaziar(Aluno *a, Aluno *i, Aluno *f){
-    a = i;
-    f = NULL;
-
-    while(a != NULL){
+void listar(Aluno *i){
+    while(i != NULL){
+        printf("RA: %d \n", i->ra);
         i = i->prox;
-        free(a);
-        a = i;
     }
+}
+
+Aluno *remover(Aluno *i){
+    Aluno *aux = ini->prox;
+    free(ini);
+    return aux;
+}
+
+Aluno *esvaziar(Aluno *i){
+    while(i != NULL){
+        ini = remover(ini);
 }

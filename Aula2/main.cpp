@@ -61,7 +61,7 @@ int main(){
                 aux = inicio;
                 inicio = inicio->prox;
                 free(aux);
-                aux = fim;
+                inicio = aux;
                 }
 
             break;
@@ -82,9 +82,18 @@ int main(){
             break;
 
         case '5':
-
             printf("Sair\n");
+            while(inicio != NULL){
+                aux = inicio -> prox;
+                free(inicio);
+                inicio = aux;
+            }
             break;
+
+        default:
+
+            printf("Opcao invalida!");
+
         }
 
     }while (op != '5');
