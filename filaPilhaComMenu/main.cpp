@@ -10,6 +10,7 @@ typedef struct Aluno {
 
 //prototipos
 void inserir (Aluno **i, Aluno **f);
+void listar(Aluno *i);
 
 int main(){
 
@@ -31,6 +32,7 @@ int main(){
 
         case '2':
             printf("Listar\n");
+            listar(inicio);
             break;
 
         case '3':
@@ -57,15 +59,26 @@ void inserir (Aluno **i, Aluno **f){
 
     if(aux == NULL)
         printf("Sem memoria!");
-
-    printf("Digite o RA: ");
-    scanf("%d", aux->ra);
-
-    if(*i == NULL)
-        *i = aux;
-    else
-        (*f)->prox = aux;
-
-    *f = aux;
-
+    else{
+        printf("\nDigite o RA: ");
+        scanf("%d", &aux->ra);
+        aux->prox = NULL;
+        if(*i == NULL)
+            *i = aux;
+        else
+            (*f)->prox = aux;
+         *f = aux;
+    }
 }
+
+void listar(Aluno *i){
+    if(i == NULL){
+        printf("Fila vazia");
+    }else{
+        while(i != NULL);{
+            printf("\nRA: %d", i->ra);
+            i = i->prox;
+        }
+    }
+}
+
