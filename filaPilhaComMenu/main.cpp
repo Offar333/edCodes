@@ -8,9 +8,10 @@ typedef struct Aluno {
 
 };
 
-//prototipos
-void inserir (Aluno **i, Aluno **f);
-void listar(Aluno *i);
+void inserir(Aluno **ini, Aluno **f);
+void listar(Aluno *ini);
+Aluno *excluir(Aluno *ini);
+Aluno *esvaziar(Aluno *ini);
 
 int main(){
 
@@ -37,10 +38,12 @@ int main(){
 
         case '3':
             printf("Excluir\n");
+            inicio = excluir(inicio);
             break;
 
         case '4':
             printf("Esvaziar\n");
+            inicio = esvaziar(inicio);
             break;
 
         case '5':
@@ -50,35 +53,63 @@ int main(){
         }
     }
     while(op!='6');
-    return(0);
+    return 0;
 }
 
-void inserir (Aluno **i, Aluno **f){
-    Aluno *aux;
-    aux = (Aluno *) malloc(sizeof(Aluno));
+void inserir(Aluno **ini, Aluno **f){
+    Aluno *aux = (Aluno *) malloc(sizeof(Aluno));
 
-    if(aux == NULL)
-        printf("Sem memoria!");
+    if (aux == NULL)
+        printf("Sem memoria\n");
     else{
-        printf("\nDigite o RA: ");
+        printf("\nInforme o RA: ");
         scanf("%d", &aux->ra);
         aux->prox = NULL;
-        if(*i == NULL)
-            *i = aux;
-        else
-            (*f)->prox = aux;
-         *f = aux;
+
+        if(*ini == NULL)
+            *ini = aux;
+        else{
+        (*f)->prox = aux;
+        }
+        *f = aux;
     }
+
 }
 
-void listar(Aluno *i){
-    if(i == NULL){
-        printf("Fila vazia");
-    }else{
-        while(i != NULL);{
-            printf("\nRA: %d", i->ra);
-            i = i->prox;
+void listar(Aluno *ini){
+    if(ini == NULL)
+        printf("Fila vazia!\n");
+    else{
+        while(ini!=NULL){
+            printf("RA: %d \n", ini->ra);
+            ini = ini->prox;
         }
     }
+
 }
 
+Aluno *excluir(Aluno *ini){
+
+    if(ini == NULL)
+        printf("Fila Vazia!\n");
+    else{
+        Aluno *aux = ini->prox;
+        free(ini);
+        return aux;
+    }
+
+    return NULL;
+
+}
+
+Aluno *esvaziar(Aluno *ini){
+    if(ini == NULL)
+        printf("Fila Vazia!\n");
+    else{
+        while(ini != NULL){
+            ini = excluir(ini);
+        }
+    }
+    return NULL;
+
+}
