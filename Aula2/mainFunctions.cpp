@@ -1,23 +1,26 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct Aluno{
-    int ra;
-    struct Aluno *prox;
+typedef struct Pipoca{
+
+    char sabor[25];
+    int serie;
+    int dataFab;
+    int horaFab;
+    struct Pipoca *prox;
 };
 
-int filaVazia(Aluno *);
-void inserir(Aluno **i, Aluno **f);
-void listar(Aluno *i);
-Aluno *remover(Aluno *i);
-Aluno *esvaziar(Aluno *i);
+void inserir(Pipoca **i, Pipoca **f);
+void listar(Pipoca *i);
+Pipoca *vender(Pipoca *i);
+
 
 int main(){
-    Aluno *inicio = NULL, *fim;
+    Pipoca *inicio = NULL, *fim;
     char op;
 
     do{
-        printf("\nDigite 1 - inserir, 2 - listar, 3 - remover, 4 - esvaziar e 5 - sair : ");
+        printf("\nDigite 1 - inserir pipoca, 2 - listar estoque, 3 - vender pipoca e 4 - sair : ");
         fflush(stdin);
         op = getchar();
 
@@ -30,42 +33,39 @@ int main(){
 
         case '2':
             printf("\nListar\n");
-            filaVazia(inicio);
             listar(inicio);
             break;
 
         case '3':
             printf("Remover\n");
-            filaVazia(inicio);
-            inicio = remover(inicio);
+            inicio = vender(inicio);
             break;
 
-        case '4':
-            printf("Esvaziar\n");
-            filaVazia(inicio);
-            esvaziar(aux, inicio, fim);
-
-            break;
-
-        case '5':
+        default:
             printf("Sair\n");
             break;
         }
 
-    }while (op != '5');
+    }while (op != '4');
     return 0;
 }
 
-void inserir(Aluno **i, Aluno **f){
+void inserir(Pipoca **i, Pipoca **f){
 
-    Aluno *aux;
-    aux = (Aluno *) malloc(sizeof(Aluno));
+    Pipoca *aux;
+    aux = (Pipoca *) malloc(sizeof(Pipoca));
 
     if(aux == NULL)
-        printf("Sem memoria\n");
-
-    printf("Digite o RA: ");
-    scanf("%d", &aux->ra);
+    printf("Sem memoria\n");
+    //sabor, série e a data e hora de fabricação
+    printf("\nInforme o sabor: ");
+    scanf("%s", &aux->sabor);
+    printf("\nInforme a serie: ");
+    scanf("%d", &aux->serie);
+    printf("\nInforme a data de fabricacao (somente numeros): ");
+    scanf("%d", &aux->dataFab);
+    printf("\nInforme a hora de fabricacao: ");
+    scanf("%d", &aux->horaFab);
     aux->prox = NULL;
 
     if(*i == NULL)
@@ -77,26 +77,23 @@ void inserir(Aluno **i, Aluno **f){
 }
 
 
-int filaVazia(Aluno *i){
-    if (i == NULL)
-        printf("Fila Vazia\n");
-        return NULL;
-}
 
-void listar(Aluno *i){
+void listar(Pipoca *i){
+    if(i == NULL){
+        printf("\nSem pipocas no estoque!");
+    }
     while(i != NULL){
-        printf("RA: %d \n", i->ra);
+        printf("Sabor: %s \n", i->sabor);
+        printf("Nro Serie: %d \n", i->serie);
+        printf("Data de Fabricacao: %d \n", i->dataFab);
+        printf("Hora de Fabricacao: %d \n", i->horaFab);
         i = i->prox;
     }
 }
 
-Aluno *remover(Aluno *i){
-    Aluno *aux = ini->prox;
-    free(ini);
+Pipoca *vender(Pipoca *i){
+    Pipoca *aux = i->prox;
+    free(i);
     return aux;
 }
 
-Aluno *esvaziar(Aluno *i){
-    while(i != NULL){
-        ini = remover(ini);
-}

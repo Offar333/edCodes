@@ -1,5 +1,4 @@
 #include<stdio.h>
-#include<stdlib.h>
 
 typedef struct Aluno {
 
@@ -10,7 +9,7 @@ typedef struct Aluno {
 
 void inserir(Aluno **ini, Aluno **f);
 void listar(Aluno *ini);
-Aluno *excluir(Aluno *ini);
+Aluno *remover(Aluno *ini);
 Aluno *esvaziar(Aluno *ini);
 
 int main(){
@@ -38,7 +37,7 @@ int main(){
 
         case '3':
             printf("Excluir\n");
-            inicio = excluir(inicio);
+            inicio = remover(inicio);
             break;
 
         case '4':
@@ -50,37 +49,40 @@ int main(){
             printf("Alterar Estrutura\n");
             break;
 
+        default:
+            inicio = esvaziar(inicio);
+
         }
     }
     while(op!='6');
+    inicio = esvaziar(inicio);
     return 0;
 }
 
 void inserir(Aluno **ini, Aluno **f){
+
     Aluno *aux = (Aluno *) malloc(sizeof(Aluno));
+    printf("\nDigite o RA: ");
+    scanf("%d", &aux->ra);
+    aux->prox = NULL;
 
-    if (aux == NULL)
-        printf("Sem memoria\n");
-    else{
-        printf("\nInforme o RA: ");
-        scanf("%d", &aux->ra);
-        aux->prox = NULL;
+    if(aux == NULL)
+        printf("Sem memoria");
 
-        if(*ini == NULL)
-            *ini = aux;
-        else{
+    if(*ini == NULL){
+        *ini = aux;
+    }else{
         (*f)->prox = aux;
-        }
-        *f = aux;
     }
-
+        *f = aux;
 }
 
 void listar(Aluno *ini){
     if(ini == NULL)
-        printf("Fila vazia!\n");
+        printf("Fila vazia\n");
+
     else{
-        while(ini!=NULL){
+        while(ini != NULL){
             printf("RA: %d \n", ini->ra);
             ini = ini->prox;
         }
@@ -88,10 +90,10 @@ void listar(Aluno *ini){
 
 }
 
-Aluno *excluir(Aluno *ini){
-
+Aluno *remover(Aluno *ini){
     if(ini == NULL)
-        printf("Fila Vazia!\n");
+        printf("Fila Vazia\n");
+
     else{
         Aluno *aux = ini->prox;
         free(ini);
@@ -103,13 +105,14 @@ Aluno *excluir(Aluno *ini){
 }
 
 Aluno *esvaziar(Aluno *ini){
-    if(ini == NULL)
-        printf("Fila Vazia!\n");
-    else{
-        while(ini != NULL){
-            ini = excluir(ini);
-        }
-    }
-    return NULL;
+
+        if(ini == NULL)
+            printf("Fila Vazia\n");
+
+        else
+            while(ini!=NULL){
+                ini = remover(ini);
+            }
+            return ini;
 
 }
