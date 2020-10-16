@@ -7,10 +7,13 @@ typedef struct Aluno {
 
 };
 
+void alterarEstrutura(Aluno **ini, Aluno **f);
 void inserir(Aluno **ini, Aluno **f);
 void listar(Aluno *ini);
 Aluno *remover(Aluno *ini);
 Aluno *esvaziar(Aluno *ini);
+
+
 
 int main(){
 
@@ -47,6 +50,7 @@ int main(){
 
         case '5':
             printf("Alterar Estrutura\n");
+            alterarEstrutura(&inicio, &fim);
             break;
 
         default:
@@ -57,6 +61,11 @@ int main(){
     while(op!='6');
     inicio = esvaziar(inicio);
     return 0;
+}
+
+void alterarEstrutura(Aluno **ini, Aluno **f){
+
+
 }
 
 void inserir(Aluno **ini, Aluno **f){
