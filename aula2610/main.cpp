@@ -9,7 +9,7 @@ typedef struct Aluno{
 
 };
 
-void inserir(Aluno **ini, Aluno **f);
+Aluno *novoElemento();
 void listar(Aluno *ini);
 Aluno *remover(Aluno *ini);
 Aluno *esvaziar(Aluno *ini);
@@ -68,22 +68,8 @@ int main(){
 
 }
 
-void inserir(Aluno **ini, Aluno **f){
-
-    Aluno *aux = (Aluno *) malloc(sizeof(Aluno));
-    printf("\nDigite o RA: ");
-    scanf("%d", &aux->ra);
-    aux->prox = NULL;
-
-    if(aux == NULL)
-        printf("Sem memoria");
-
-    if(*ini == NULL){
-        *ini = aux;
-    }else{
-        (*f)->prox = aux;
-    }
-        *f = aux;
+Aluno *novoElemento(){
+    return (Aluno *) malloc(sizeof(Aluno));
 }
 
 void listar(Aluno *ini){
@@ -123,7 +109,6 @@ Aluno *esvaziar(Aluno *ini){
                 ini = remover(ini);
             }
             return ini;
-
 }
 
 Aluno *insereInicio(Aluno *ini){
@@ -170,7 +155,7 @@ void inserir(Aluno **ini, Aluno **f){
             *f = insereFim(*f);
         }else{
             int raProc;
-            prinf("Deseja inserir antes/depois de qual elemento?");
+            printf("Deseja inserir antes/depois de qual elemento?");
             scanf("%d", &raProc);
             char op = opcao();
             if((*ini)->ra == raProc){
